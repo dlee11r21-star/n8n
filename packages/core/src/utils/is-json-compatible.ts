@@ -66,6 +66,11 @@ const check = (
 			errorMessage: `has non-plain prototype (${proto?.constructor?.name || 'unknown'})`,
 		};
 	}
+
+	if (typeof (val as { toJSON?: unknown }).toJSON === 'function') {
+		return { isValid: true };
+	}
+
 	for (const key of Reflect.ownKeys(val as object)) {
 		if (typeof key === 'symbol') {
 			return {
