@@ -133,6 +133,10 @@ describe('isJsonCompatible', () => {
 			name: 'repeated objects references in an object that are not circular',
 			value: { array: { object1: objectRef, object2: objectRef } },
 		},
+		{
+			name: 'an object with a toJSON method',
+			value: { toJSON: () => '{"a":1}' },
+		},
 	])('returns valid for "$name"', ({ value }) => {
 		const result = isJsonCompatible(value);
 
