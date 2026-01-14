@@ -62,8 +62,8 @@ const getProxyFromFixture = (
 		}
 	}
 
-	const dataProxy = new WorkflowDataProxy(
-		new Workflow({
+	const dataProxy = new WorkflowDataProxy({
+		workflow: new Workflow({
 			id: '123',
 			name: 'test workflow',
 			nodes: workflow.nodes,
@@ -72,16 +72,16 @@ const getProxyFromFixture = (
 			nodeTypes: Helpers.NodeTypes(),
 			pinData,
 		}),
-		run?.data ?? null,
-		opts?.runIndex ?? 0,
-		0,
-		activeNode,
-		lastNodeConnectionInputData ?? [],
-		{},
-		mode ?? 'integrated',
-		{},
+		runExecutionData: run?.data ?? null,
+		runIndex: opts?.runIndex ?? 0,
+		itemIndex: 0,
+		activeNodeName: activeNode,
+		connectionInputData: lastNodeConnectionInputData ?? [],
+		siblingParameters: {},
+		mode: mode ?? 'integrated',
+		additionalKeys: {},
 		executeData,
-	);
+	});
 
 	return dataProxy.getDataProxy(opts);
 };
@@ -576,8 +576,8 @@ describe('WorkflowDataProxy', () => {
 				},
 			];
 
-			const dataProxy = new WorkflowDataProxy(
-				new Workflow({
+			const dataProxy = new WorkflowDataProxy({
+				workflow: new Workflow({
 					id: '123',
 					name: 'test workflow',
 					nodes: workflowWithoutResultData.nodes,
@@ -585,16 +585,16 @@ describe('WorkflowDataProxy', () => {
 					active: false,
 					nodeTypes: Helpers.NodeTypes(),
 				}),
-				null, // No run execution data
-				0,
-				0,
-				'AI Node',
+				runExecutionData: null, // No run execution data
+				runIndex: 0,
+				itemIndex: 0,
+				activeNodeName: 'AI Node',
 				connectionInputData,
-				{},
-				'manual',
-				{},
-				undefined,
-			);
+				siblingParameters: {},
+				mode: 'manual',
+				additionalKeys: {},
+				executeData: undefined,
+			});
 
 			const proxy = dataProxy.getDataProxy();
 
@@ -638,8 +638,8 @@ describe('WorkflowDataProxy', () => {
 				},
 			];
 
-			const dataProxy = new WorkflowDataProxy(
-				new Workflow({
+			const dataProxy = new WorkflowDataProxy({
+				workflow: new Workflow({
 					id: '123',
 					name: 'test workflow',
 					nodes: workflowWithLimitedData.nodes,
@@ -647,16 +647,16 @@ describe('WorkflowDataProxy', () => {
 					active: false,
 					nodeTypes: Helpers.NodeTypes(),
 				}),
-				null, // No run execution data
-				0,
-				0,
-				'AI Node',
+				runExecutionData: null, // No run execution data
+				runIndex: 0,
+				itemIndex: 0,
+				activeNodeName: 'AI Node',
 				connectionInputData,
-				{},
-				'manual',
-				{},
-				undefined,
-			);
+				siblingParameters: {},
+				mode: 'manual',
+				additionalKeys: {},
+				executeData: undefined,
+			});
 
 			const proxy = dataProxy.getDataProxy();
 
